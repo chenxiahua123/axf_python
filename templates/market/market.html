@@ -1,0 +1,112 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+
+{% block title %}
+    <title>闪购超市</title>
+{% endblock %}
+
+{% block extcss %}
+    <link rel="stylesheet" href="{% static 'market/css/market.css' %}">
+{% endblock %}
+
+{% block content %}
+
+    <div id="content">
+
+        <div class="market">
+            {#            分类#}
+            <div class="type-slider">
+                <ul>
+                    {% for typename in typenames %}
+                        <li>
+
+                            <a href="#">
+                                <span></span>
+
+                                {{ typename.typename }}
+
+
+                            </a>
+
+
+                        </li>
+                    {% endfor %}
+
+
+                </ul>
+            </div>
+            {#                导航#}
+            <nav>
+                <ul>
+                    <li>
+                            <span id="category_bt">
+
+                                    全部类型
+                                <i class="glyphicon glyphicon-chevron-up"></i>
+                            </span>
+                    </li>
+                    <li>
+                            <span id="sort_bt">
+
+                                  综合排序
+                                <i class="glyphicon glyphicon-chevron-up"></i>
+                            </span>
+                    </li>
+                </ul>
+            </nav>
+
+            <div class="main-content">
+                <div class="content-wrapper">
+                    <ul>
+                        {% for good in goods %}
+                            <li>
+                                <a href="#" class="container">
+                                    <img class="goods-img" src="{{ good.productimg }}">
+                                    <div class="goods-info">
+                                        <div class="name">{{ good.productlongname }}</div>
+                                        <div class="detailtag">
+                                            {% if good.isxf %}
+                                                <div class="xf">精选</div>
+                                            {% endif %}
+
+                                            <i></i>
+                                        </div>
+                                        <div class="specifics">{{ good.specifics }}</div>
+                                        <div class="price">
+
+                                            <span class="now-price">{{ good.price }}</span>
+                                            <span class="market-price">{{ good.marketprice }}</span>
+
+                                        </div>
+                                    </div>
+                                </a>
+                                <div class="bt-wrapper">
+                                    <div class="glyphicon glyphicon-plus"></div>
+                                    <div class="num"></div>
+                                </div>
+                            </li>
+                        {% endfor %}
+
+
+                    </ul>
+                </div>
+                <div class="bounce-view">
+                    <span class="bounce-wrapper">
+                        <a></a>
+                    </span>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+{% endblock %}
+
+
+
+
+{% block extjs %}
+    <script src="{% static 'market/js/market.js' %}"></script>
+{% endblock %}

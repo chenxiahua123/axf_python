@@ -1,0 +1,24 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+
+{% block title %}
+    <title>我的</title>
+{% endblock %}
+
+{% block extcss %}
+    <link rel="stylesheet" href="{% static 'mine/css/mine.css'%}">
+{% endblock %}
+
+
+{% block content %}
+
+    <div id="content">我的</div>
+
+{% endblock %}
+
+
+
+{% block extjs %}
+    <script src="{% static 'mine/js/mine.js'%}"></script>
+{% endblock %}
