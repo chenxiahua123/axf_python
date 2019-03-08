@@ -18,13 +18,13 @@
             {#            分类#}
             <div class="type-slider">
                 <ul>
-                    {% for typename in typenames %}
+                    {% for foodtype in foodtypes %}
                         <li>
 
-                            <a href="#">
+                            <a href="{% url 'app:market'%}">
                                 <span></span>
 
-                                {{ typename.typename }}
+                                {{ foodtype.typename }}
 
 
                             </a>
@@ -92,9 +92,25 @@
                     </ul>
                 </div>
                 <div class="bounce-view">
-                    <span class="bounce-wrapper">
-                        <a></a>
-                    </span>
+                    {% for child_list in child_lists %}
+                        <span class="bounce-wrapper">
+                            <a>{{ child_list.name }}</a>
+                        </span>
+                    {% endfor %}
+
+
+                </div>
+                <div class="bounce-view">
+
+                        <span class="bounce-wrapper">
+                            <a href="#">综合排序</a>
+                            <a href="#">销量排序</a>
+                            <a href="#">价格最低</a>
+                            <a href="#">价格最高</a>
+                        </span>
+
+
+
                 </div>
             </div>
         </div>

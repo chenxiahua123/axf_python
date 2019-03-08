@@ -1,4 +1,29 @@
 $(function () {
+    var index=$.cookie('index')
+    // console.log(index)
+    if (index){
+        $('.type-slider li').eq(index).addClass('active')
+    }else {
+        $('.type-slider li:first').addClass('active')
+    }
+
+    $('.type-slider li').click(function () {
+        console.log('侧边栏单击成功')
+
+        $.cookie('index',$(this).index(),{expires:3,path:'/'})
+
+
+
+
+    })
+
+
+
+
+
+
+
+
 
     // 第一步：先处理综合类型和综合排序单击切换事件
 

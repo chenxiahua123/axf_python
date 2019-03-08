@@ -5,6 +5,12 @@ from app.models import Lunbo, Nav, Mustbuy, Shop, Mainshow, Foodtypes, Goods
 
 
 def base(request):
+    # typenames = Foodtypes.objects.values('typename').distinct()
+    #
+    # data={
+    #     'typenames':typenames
+    # }
+
     return render(request,'base/base.html')
 
 
@@ -40,7 +46,28 @@ def market(request):
 
     typenames=Foodtypes.objects.values('typename').distinct()
 
-    goods=Goods.objects.all()
+
+
+    # 默认打开是热销榜
+    # 点击左侧分类，显示对应商品信息，传参categoryid
+
+    index=int(request.COOKIES.get('index'))
+
+    categoryid=foodtypes[index].typeid
+
+    goods=Goods.objects.filter(categoryid=categoryid)
+
+    childnames=foodtypes[index].childtypenames
+
+    child_list=[]
+    for item in childnames.split('#'):
+        items=item.split(':')
+        temp_dir={
+            'name':items[0],
+            'id':items[1]
+        }
+        child_list.append(temp_dir)
+
     # typelist=[]
     #
     # for foodtype in foodtypes:
@@ -55,6 +82,7 @@ def market(request):
         'foodtypes':foodtypes,
         'typenames':typenames,
         'goods':goods[0:30],
+        'child_lists':child_list,
     }
 
 
