@@ -86,16 +86,16 @@ $(function () {
     // 设置综合排序 开函数
     function sortShow() {
         var category_bt=false
+
         categoryHide()
-        categoryHide()
-        $('.bounce-view')[0].style.display='block'
+        $('.bounce-view')[1].style.display='block'
         $('#sort_bt i').removeClass('glyphicon glyphicon-chevron-up').addClass('glyphicon glyphicon-chevron-down')
 
     }
 
     function sortHide() {
 
-        $('.bounce-view')[0].style.display='none'
+        $('.bounce-view')[1].style.display='none'
         $('#sort_bt i').removeClass('glyphicon glyphicon-chevron-down').addClass('glyphicon glyphicon-chevron-up')
 
     }

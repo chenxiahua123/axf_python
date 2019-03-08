@@ -40,7 +40,7 @@ def home(request):
     return render(request,'home/home.html',context=data)
 
 
-def market(request):
+def market(request,childid='0',sortid='0'):
 
     foodtypes=Foodtypes.objects.all()
 
@@ -55,7 +55,19 @@ def market(request):
 
     categoryid=foodtypes[index].typeid
 
-    goods=Goods.objects.filter(categoryid=categoryid)
+    if childid=='0':
+        goods = Goods.objects.filter(categoryid=categoryid)
+    else:
+        goods=Goods.objects.filter(categoryid=categoryid).filter(childcid=childid)
+
+    if sortid=='0':
+        goods=goods.order_by('-productnum')
+    elif sortid=='1':
+        goods=Goods.objects.filter(categoryid=categoryid).order_by('productnum')
+    elif sortid=='2':
+        goods = Goods.objects.filter(categoryid=categoryid).order_by('-price')
+    elif sortid =='3':
+        goods = Goods.objects.filter(categoryid=categoryid).order_by('price')
 
     childnames=foodtypes[index].childtypenames
 

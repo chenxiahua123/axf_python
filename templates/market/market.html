@@ -21,7 +21,7 @@
                     {% for foodtype in foodtypes %}
                         <li>
 
-                            <a href="{% url 'app:market'%}">
+                            <a href="{% url 'app:marketbase'%}">
                                 <span></span>
 
                                 {{ foodtype.typename }}
@@ -91,22 +91,22 @@
 
                     </ul>
                 </div>
-                <div class="bounce-view">
+                <div class="bounce-view category_view">
                     {% for child_list in child_lists %}
                         <span class="bounce-wrapper">
-                            <a>{{ child_list.name }}</a>
+                            <a href="{% url 'app:market' child_list.id 0%}">{{ child_list.name }}</a>
                         </span>
                     {% endfor %}
 
 
                 </div>
-                <div class="bounce-view">
+                <div class="bounce-view sort_view">
 
                         <span class="bounce-wrapper">
-                            <a href="#">综合排序</a>
-                            <a href="#">销量排序</a>
-                            <a href="#">价格最低</a>
-                            <a href="#">价格最高</a>
+                            <a href="{% url 'app:market' 0 0%}">综合排序</a>
+                            <a href="{% url 'app:market' 0 1%}">销量排序</a>
+                            <a href="{% url 'app:market' 0 2%}">价格最低</a>
+                            <a href="{% url 'app:market' 0 3%}">价格最高</a>
                         </span>
 
 
