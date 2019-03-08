@@ -113,3 +113,11 @@ class Goods(models.Model):
 
     class Meta:
         db_table='axf_goods'
+
+class User(models.Model):
+    username=models.CharField(max_length=100)
+    password=models.CharField(max_length=300)
+    name=models.CharField(max_length=100)
+
+    class Meta:
+        db_table='注册用户信息'

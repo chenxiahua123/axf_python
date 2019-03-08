@@ -94,7 +94,7 @@
                 <div class="bounce-view category_view">
                     {% for child_list in child_lists %}
                         <span class="bounce-wrapper">
-                            <a href="{% url 'app:market' child_list.id 0%}">{{ child_list.name }}</a>
+                            <a href="{% url 'app:market' child_list.id %}">{{ child_list.name }}</a>
                         </span>
                     {% endfor %}
 
@@ -103,10 +103,10 @@
                 <div class="bounce-view sort_view">
 
                         <span class="bounce-wrapper">
-                            <a href="{% url 'app:market' 0 0%}">综合排序</a>
-                            <a href="{% url 'app:market' 0 1%}">销量排序</a>
-                            <a href="{% url 'app:market' 0 2%}">价格最低</a>
-                            <a href="{% url 'app:market' 0 3%}">价格最高</a>
+                            <a href="{% url 'app:market' childid 0%}">综合排序</a>
+                            <a href="{% url 'app:market' childid 1%}">销量排序</a>
+                            <a href="{% url 'app:market' childid 2%}">价格最低</a>
+                            <a href="{% url 'app:market' childid 3%}">价格最高</a>
                         </span>
 
 

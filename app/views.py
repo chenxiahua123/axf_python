@@ -1,7 +1,9 @@
-from django.shortcuts import render
+import hashlib
+
+from django.shortcuts import render, redirect
 
 # Create your views here.
-from app.models import Lunbo, Nav, Mustbuy, Shop, Mainshow, Foodtypes, Goods
+from app.models import Lunbo, Nav, Mustbuy, Shop, Mainshow, Foodtypes, Goods, User
 
 
 def base(request):
@@ -63,13 +65,14 @@ def market(request,childid='0',sortid='0'):
     if sortid=='0':
         goods=goods.order_by('-productnum')
     elif sortid=='1':
-        goods=Goods.objects.filter(categoryid=categoryid).order_by('productnum')
+        goods=goods.order_by('productnum')
     elif sortid=='2':
-        goods = Goods.objects.filter(categoryid=categoryid).order_by('-price')
+        goods = goods.order_by('-price')
     elif sortid =='3':
-        goods = Goods.objects.filter(categoryid=categoryid).order_by('price')
+        goods = goods.order_by('price')
 
     childnames=foodtypes[index].childtypenames
+    print(childid)
 
     child_list=[]
     for item in childnames.split('#'):
@@ -95,6 +98,7 @@ def market(request,childid='0',sortid='0'):
         'typenames':typenames,
         'goods':goods[0:30],
         'child_lists':child_list,
+        'childid':childid,
     }
 
 
@@ -107,3 +111,28 @@ def cart(request):
 
 def mine(request):
     return render(request,'mine/mine.html')
+
+
+def genaret_password(param):
+    md5=hashlib.md5()
+    md5.update(param.encode('utf-8'))
+    return md5.hexdigest()
+
+
+def register(request):
+
+    if request.method=='GET':
+        return render(request, 'mine/register.html')
+    elif request.method=='POST':
+
+        user=User()
+        user.username=request.POST.get('username')
+        user.password=genaret_password(request.POST.get('password'))
+        user.name=request.POST.get('name')
+
+        user.save()
+
+        return redirect('app:mine')
+
+
+

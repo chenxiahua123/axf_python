@@ -1,0 +1,36 @@
+.register{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background: whitesmoke;
+}
+.register form{
+    padding: 0 2rem;
+}
+.register form .input-group{
+    margin: 1.5rem 0;
+}
+.error{
+    margin-left:2rem;
+    font-size: 0.8rem;
+    color: #e62e2e;
+    display: none;
+}
+
+#subButton {
+    width: 100%;
+}
+
+.register .back{
+    text-align: right;
+}
+.register .back a{
+    font-size: 1.5rem;
+
+
+}
+.register .back a span{
+    float: right;
+
+
+}
