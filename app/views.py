@@ -1,5 +1,8 @@
 import hashlib
+import random
+from time import time
 
+from django.core.cache import cache
 from django.shortcuts import render, redirect
 
 # Create your views here.
@@ -110,13 +113,42 @@ def cart(request):
 
 
 def mine(request):
-    return render(request,'mine/mine.html')
+
+    token=request.session.get('token')
+
+    userid=cache.get(token)
+
+    if userid:
+        user=User.objects.get(pk=userid)
+
+        data={
+            'user':user
+        }
+        return render(request,'mine/mine.html',context=data)
+    else:
+        return render(request,'mine/mine.html')
+
+
+
+
+
 
 
 def genaret_password(param):
     md5=hashlib.md5()
     md5.update(param.encode('utf-8'))
     return md5.hexdigest()
+
+
+def generate_token():
+
+    token=str(time())+str(random.random)
+    md5=hashlib.md5()
+    md5.update(token.encode('utf-8'))
+
+    return md5.hexdigest()
+
+
 
 
 def register(request):
@@ -131,6 +163,12 @@ def register(request):
         user.name=request.POST.get('name')
 
         user.save()
+
+        token=generate_token()
+
+        cache.set(token,user.id,60*60*24*3)
+
+        request.session['token']=token
 
         return redirect('app:mine')
 

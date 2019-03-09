@@ -115,7 +115,7 @@ class Goods(models.Model):
         db_table='axf_goods'
 
 class User(models.Model):
-    username=models.CharField(max_length=100)
+    username=models.CharField(max_length=100,unique=True)
     password=models.CharField(max_length=300)
     name=models.CharField(max_length=100)
 

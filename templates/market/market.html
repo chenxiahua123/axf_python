@@ -94,7 +94,7 @@
                 <div class="bounce-view category_view">
                     {% for child_list in child_lists %}
                         <span class="bounce-wrapper">
-                            <a href="{% url 'app:market' child_list.id %}">{{ child_list.name }}</a>
+                            <a href="{% url 'app:market' child_list.id 0%}">{{ child_list.name }}</a>
                         </span>
                     {% endfor %}
 

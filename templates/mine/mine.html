@@ -20,11 +20,21 @@
                     <img src="{% static 'mine/img/222.jpg' %}">
                 </div>
                 <div class="user-content">
-                    <p><span class="glyphicon glyphicon-user"></span>未登录</p>
-                    <p><span class="glyphicon glyphicon-star"></span>等级无</p>
-                    <div class="register">
-                        注册
+                    {% if user %}
+                        <p><span class="glyphicon glyphicon-user"></span>{{ user.name }}</p>
+                        <p><span class="glyphicon glyphicon-star"></span>等级 Level 1</p>
+                        <div class="register">
+                        <a href="{% url 'app:register' %}" style="list-style: none;color: white">欢迎您</a>
                     </div>
+                    {% else %}
+                        <p><span class="glyphicon glyphicon-user"></span>未登录</p>
+                        <p><span class="glyphicon glyphicon-star"></span>等级无</p>
+                        <div class="register">
+                        <a href="{% url 'app:register' %}" style="list-style: none;color: white">注册</a>
+                    </div>
+                    {% endif %}
+
+
                 </div>
             </div>
             <div class="collect">
