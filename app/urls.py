@@ -11,4 +11,8 @@ urlpatterns=[
     url(r'^mine/$',views.mine,name='mine'),
 
     url(r'^register/$',views.register,name='register'),
+    url(r'^logout/$',views.logout,name='logout'),
+    url(r'^login/$',views.login,name='login'),
+    # 检测注册——ajax
+    url(r'^check_01/$',views.check_01,name='check_01')
 ]

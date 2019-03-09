@@ -3,6 +3,7 @@ import random
 from time import time
 
 from django.core.cache import cache
+from django.http import JsonResponse
 from django.shortcuts import render, redirect
 
 # Create your views here.
@@ -122,7 +123,8 @@ def mine(request):
         user=User.objects.get(pk=userid)
 
         data={
-            'user':user
+            'user':user,
+            'token':token,
         }
         return render(request,'mine/mine.html',context=data)
     else:
@@ -171,6 +173,56 @@ def register(request):
         request.session['token']=token
 
         return redirect('app:mine')
+
+
+def logout(request):
+    request.session.flush()
+    return redirect('app:mine')
+
+
+def login(request):
+
+     if request.method=='GET':
+         return render(request, 'mine/login.html')
+     if request.method=='POST':
+
+         username=request.POST.get('username')
+
+         password=genaret_password(request.POST.get('password'))
+
+         user=User.objects.filter(username=username).filter(password=password)
+
+         if user:
+
+             user=user.first()
+             token=generate_token()
+
+             cache.set(token,user.id)
+
+             request.session['token']=token
+
+             return redirect('app:mine')
+         else:
+            data={
+                'error':'账户信息有误'
+            }
+            return render(request,'mine/login.html',context=data)
+
+
+
+
+
+
+def check_01(request):
+
+    username=request.GET.get('username')
+    # print(username)
+    user=User.objects.filter(username=username)
+    #
+    if user:
+        return JsonResponse({'msg': '注册邮箱已被注册','status':0})
+    else:
+        return JsonResponse({'msg': '注册邮箱可使用', 'status':1})
 
 
 

@@ -1,0 +1,45 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block footer %}
+{% endblock %}
+
+{% block extcss %}
+    <link rel="stylesheet" href="{% static 'mine/css/login.css' %}">
+{% endblock %}
+
+{% block extjs %}
+    <script src="{% static 'mine/js/jquery-1.12.3.js' %}"></script>
+    <script src="{% static 'mine/js/login.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+    <div class="login">
+        <div class="back">
+            <a href="{% url 'app:mine' %}">
+                <span class="glyphicon glyphicon-remove"></span>
+            </a>
+        </div>
+               <form class="form-inline" action="{% url 'app:login' %}" method="post">
+            {% csrf_token %}
+            <div class="form-group input-group">
+
+                <div class="input-group">
+                    <div class="input-group-addon" id="username">账户</div>
+                    <input type="text" class="form-control" id="exampleInputAmount" placeholder="用户登录邮箱" name="username">
+                    <p id="error_username"></p>
+
+                </div>
+                <div class="input-group">
+                    <div class="input-group-addon">密码</div>
+                    <input type="password" class="form-control" id="exampleInputAmount" placeholder="用户登录密码" name="password">
+                </div>
+            </div>
+            <div><span id="user_error" style="color: red">{{ error }}</span></div>
+            <input type="submit" class="btn btn-primary" value="登录" style="width: 80%" id="subButton">
+        </form>
+
+
+
+    </div>
+{% endblock %}
