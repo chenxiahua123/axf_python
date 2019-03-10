@@ -30,21 +30,27 @@
             {% csrf_token %}
             <div class="form-group input-group">
 
-                <div class="input-group">
+{#           正确标注，父类标签要带 form-group has-success has-feedback，要有打钩，得添加span标签（含特别标注的）class="glyphicon glyphicon-ok form-control-feedback"    #}
+{#                错误标注，父类标签要带has-error has-feedback，带打错，得添加span标签（含特殊标注），class=glyphicon glyphicon-remove form-control-feedback#}
+                <div class="input-group" id="email_check">
                     <div class="input-group-addon">邮箱</div>
-                    <input type="text" class="form-control glyphicon glyphicon-ok" id="username" placeholder="用户注册邮箱"
+                    <input type="text" class="form-control" id="username" placeholder="用户注册邮箱"
                            name="username" autocomplete="off">
+{#                     <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>#}
+                    <span class="" aria-hidden="true" id="email_check02"></span>
                 </div>
                 <div id="error_username"></div>
-                <div class="input-group">
+                <div class="input-group" id="password_check">
                     <div class="input-group-addon">密码</div>
                     <input type="password" class="form-control" id="password" placeholder="用户注册密码" name="password"
                            autocomplete="off">
+                    <span class="" aria-hidden="true" id="password_check02"></span>
                 </div>
-                <div class="input-group">
+                <div class="input-group" id="password_again_check">
                     <div class="input-group-addon">再次确认密码</div>
                     <input type="password" class="form-control" id="password_again" placeholder="再次确认密码"
                            autocomplete="off">
+                    <span class="" aria-hidden="true" id="password_again_check02"></span>
                 </div>
                 <div class="input-group">
                     <div class="input-group-addon">用户昵称</div>
@@ -57,6 +63,33 @@
 
         </form>
 
-
+{#        <div class="form-group has-success has-feedback">#}
+{#            <label class="control-label" for="inputSuccess2">Input with success</label>#}
+{#            <input type="text" class="form-control" id="inputSuccess2" aria-describedby="inputSuccess2Status">#}
+{#            <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>#}
+{#            <span id="inputSuccess2Status" class="sr-only">(success)</span>#}
+{#        </div>#}
+{#        <div class="form-group has-warning has-feedback">#}
+{#            <label class="control-label" for="inputWarning2">Input with warning</label>#}
+{#            <input type="text" class="form-control" id="inputWarning2" aria-describedby="inputWarning2Status">#}
+{#            <span class="glyphicon glyphicon-warning-sign form-control-feedback" aria-hidden="true"></span>#}
+{#            <span id="inputWarning2Status" class="sr-only">(warning)</span>#}
+{#        </div>#}
+{#        <div class="form-group has-error has-feedback">#}
+{#            <label class="control-label" for="inputError2">Input with error</label>#}
+{#            <input type="text" class="form-control" id="inputError2" aria-describedby="inputError2Status">#}
+{#            <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>#}
+{#            <span id="inputError2Status" class="sr-only">(error)</span>#}
+{#        </div>#}
+{#        <div class="form-group has-success has-feedback">#}
+{#            <label class="control-label" for="inputGroupSuccess1">Input group with success</label>#}
+{#            <div class="input-group">#}
+{#                <span class="input-group-addon">@</span>#}
+{#                <input type="text" class="form-control" id="inputGroupSuccess1"#}
+{#                       aria-describedby="inputGroupSuccess1Status">#}
+{#            </div>#}
+{#            <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>#}
+{#            <span id="inputGroupSuccess1Status" class="sr-only">(success)</span>#}
+{#        </div>#}
     </div>
 {% endblock %}

@@ -1,5 +1,6 @@
 import hashlib
 import random
+import re
 from time import time
 
 from django.core.cache import cache
@@ -209,10 +210,6 @@ def login(request):
             return render(request,'mine/login.html',context=data)
 
 
-
-
-
-
 def check_01(request):
 
     username=request.GET.get('username')
@@ -225,4 +222,32 @@ def check_01(request):
         return JsonResponse({'msg': '注册邮箱可使用', 'status':1})
 
 
+def check_02(request):
 
+    password=request.GET.get('password')
+    print(password)
+    pattern=re.compile(r'^\d{6}$')
+    result=re.match(pattern,password)
+    print(result)
+
+    if result:
+        return JsonResponse({'msg': '验证匹对成功','status':1})
+    else:
+        return JsonResponse({'msg':'密码配对失败','status':0})
+
+
+def check_03(request):
+
+    password = request.GET.get('password')
+    password_again=request.GET.get('password_again')
+
+    print(password,password_again)
+
+    if password==password_again:
+        return JsonResponse({'msg': '再次密码配对成功', 'status': 1})
+    else:
+        return JsonResponse({'msg': '再次密码配对失败', 'status': 0})
+
+
+def check_04(request):
+    return None
