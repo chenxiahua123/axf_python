@@ -100,16 +100,20 @@ $(function () {
 
     }
 
+    $('.bt-wrapper .glyphicon-minus').hide()
+    $('.bt-wrapper .num').hide()
+
     // 购物车 加 操作
     $('.bt-wrapper .glyphicon-plus').click(function () {
 
-        console.log('加操作')
+        var $that=$(this)
+        // console.log('加操作')
 
         var goodid=$(this).attr('goodid')
 
-        console.log(11111111111111)
+        // console.log(11111111111111)
 
-        console.log(goodid)
+        // console.log(goodid)
 
         data={
             'goodid':goodid,
@@ -120,12 +124,36 @@ $(function () {
             if (response.status==0){
                 window.open('/login',target='_self')
             }else if (response.status==1){
-                console.log(response)
+                // console.log(response)
+                $that.prev().show().html(response.number)
+                $that.prev().prev().show()
             }
 
         })
 
     })
+
+    // 购物车减操作
+    $('.bt-wrapper .glyphicon-minus').click(function () {
+
+        console.log('Minus-operation')
+
+        var goodid=$(this).attr('goodid')
+
+        var $that=$(this)
+
+        data={
+            'goodid':goodid,
+        }
+
+        $.get('/minuscart',data,function (response) {
+            console.log(response)
+            $that.next().html(response.number)
+        })
+
+
+    })
+
 
 
 

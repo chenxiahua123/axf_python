@@ -20,4 +20,5 @@ urlpatterns=[
     # url(r'^check_04/$', views.check_04, name='check_04'),
 
     url(r'^addcart/$', views.addcart, name='addcart'),
+    url(r'^minuscart/$', views.minuscart, name='minuscart'),
 ]

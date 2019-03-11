@@ -282,32 +282,65 @@ def addcart(request):
 
         carts=Cart.objects.filter(user=user).filter(goods=goods)
 
-        print(user,goods,carts)
-        print(type(user))
+
+        # print(user,goods,carts)
+        # print(type(user))
 
         if carts.exists():
-            print(111111111)
+            # print(111111111)
             cart=carts.first()
-            print(222222222)
+            # print(222222222)
             cart.number=cart.number+1
-            print(333333333)
-            cart.save()
-        else:
-            print(4444444444444)
-            cart=Cart()
-            print(5555555555)
-            cart.user=user
-            print(6666666666)
-            cart.goods=goods
-            print(7777777777777777)
-            cart.number=1
-            print(888888888888)
+            # print(333333333)
             cart.save()
 
-        return JsonResponse({'msg':'{}-加入购物车-数量为-{}'.format(cart.goods.productlongname,cart.number),'status':1})
+
+        else:
+            # print(4444444444444)
+            cart=Cart()
+            # print(5555555555)
+            cart.user=user
+            # print(6666666666)
+            cart.goods=goods
+            # print(7777777777777777)
+            cart.number=1
+            # print(888888888888)
+            cart.save()
+
+        return JsonResponse({'msg':'{}-加入购物车-数量为-{}'.format(cart.goods.productlongname,cart.number),'status':1,'number':cart.number})
     else:
 
         return JsonResponse({'msg': '请先登录，再进行操作','status':0})
 
 
+def minuscart(request):
 
+    token=request.session.get('token')
+
+    print(token)
+    userid=cache.get(token)
+
+    print(userid)
+
+    goodid=request.GET.get('goodid')
+
+    print(goodid)
+    print(11111111111111111111111)
+    user=User.objects.get(pk=userid)
+    print(222222222222222222222)
+    goods=Goods.objects.get(pk=goodid)
+    print(33333333333333333333)
+    print(user)
+    print(goods)
+
+    carts=Cart.objects.filter(user=user).filter(goods=goods)
+
+    cart=carts.first()
+
+    print(cart)
+
+    cart.number=cart.number-1
+
+    cart.save()
+
+    return JsonResponse({'msg':'{}-减操作-数量为{}'.format(cart.goods.productlongname,cart.number),'number':cart.number})
