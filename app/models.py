@@ -121,3 +121,20 @@ class User(models.Model):
 
     class Meta:
         db_table='注册用户信息'
+
+# 购物车模型类
+class Cart(models.Model):
+    # 用户(属于哪个用户)
+    user=models.ForeignKey(User)
+    #商品(添加哪个商品）
+    goods = models.ForeignKey(Goods)
+
+    # 具体规格
+    number=models.IntegerField()
+
+    isselect=models.BooleanField(default=True)
+
+    isdelete=models.BooleanField(default=False)
+
+    class Meta:
+        db_table='爱鲜蜂——购物车'

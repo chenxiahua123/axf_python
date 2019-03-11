@@ -17,5 +17,7 @@ urlpatterns=[
     url(r'^check_01/$', views.check_01, name='check_01'),
     url(r'^check_02/$', views.check_02, name='check_02'),
     url(r'^check_03/$', views.check_03, name='check_03'),
-    url(r'^check_04/$', views.check_04, name='check_04'),
+    # url(r'^check_04/$', views.check_04, name='check_04'),
+
+    url(r'^addcart/$', views.addcart, name='addcart'),
 ]

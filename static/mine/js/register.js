@@ -6,8 +6,8 @@ $(function () {
     $('#username').blur(function () {
         var username=$(this).val()
 
-        if (username.length==0){
-            $('#error_username').hide()
+        if (username==''){
+            return
         }
 
         $('#error_username').css('display','block')
@@ -53,11 +53,12 @@ $(function () {
         })
     })
 
+    // 密码再次输入失焦事件
     $('#password_again').blur(function () {
         var password_again=$(this).val()
         var password=$('#password').val()
-        console.log(password)
-        console.log(password_again)
+        // console.log(password)
+        // console.log(password_again)
 
         data={
             'password_again':password_again,
@@ -65,7 +66,7 @@ $(function () {
         }
 
         $.get('/check_03',data,function (response) {
-            console.log(response)
+            // console.log(response)
             if (response.status==0){
                 $('#password_again_check').removeClass('form-group has-success has-feedback').addClass('form-group has-error has-feedback')
                 $('#password_again_check02').removeClass('glyphicon glyphicon-ok form-control-feedback').addClass('glyphicon glyphicon-remove form-control-feedback')
@@ -75,4 +76,21 @@ $(function () {
             }
         })
     })
+
+    $('#name').blur(function () {
+
+        name=$(this).val()
+        console.log(name)
+
+        if (name.length==0){
+            $('#name_check').removeClass('form-group has-success has-feedback').addClass('form-group has-error has-feedback')
+            $('#name_check02').removeClass('glyphicon glyphicon-ok form-control-feedback').addClass('glyphicon glyphicon-remove form-control-feedback')
+        }else {
+             $('#name_check').removeClass('form-group has-error has-feedback').addClass('form-group has-success has-feedback')
+            $('#name_check02').removeClass('glyphicon glyphicon-remove form-control-feedback').addClass('glyphicon glyphicon-ok form-control-feedback')
+        }
+
+    })
+
+
 })

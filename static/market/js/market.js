@@ -100,6 +100,35 @@ $(function () {
 
     }
 
+    // 购物车 加 操作
+    $('.bt-wrapper .glyphicon-plus').click(function () {
+
+        console.log('加操作')
+
+        var goodid=$(this).attr('goodid')
+
+        console.log(11111111111111)
+
+        console.log(goodid)
+
+        data={
+            'goodid':goodid,
+        }
+
+        $.get('/addcart',data,function (response) {
+            // console.log(response)
+            if (response.status==0){
+                window.open('/login',target='_self')
+            }else if (response.status==1){
+                console.log(response)
+            }
+
+        })
+
+    })
+
+
+
 
 
 })

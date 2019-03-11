@@ -8,7 +8,7 @@ from django.http import JsonResponse
 from django.shortcuts import render, redirect
 
 # Create your views here.
-from app.models import Lunbo, Nav, Mustbuy, Shop, Mainshow, Foodtypes, Goods, User
+from app.models import Lunbo, Nav, Mustbuy, Shop, Mainshow, Foodtypes, Goods, User, Cart
 
 
 def base(request):
@@ -58,7 +58,15 @@ def market(request,childid='0',sortid='0'):
     # 默认打开是热销榜
     # 点击左侧分类，显示对应商品信息，传参categoryid
 
-    index=int(request.COOKIES.get('index'))
+    index=request.COOKIES.get('index')
+
+    if not index:
+        index=0
+    else:
+        index = int(request.COOKIES.get('index'))
+
+    # print(index)
+    # print(type(index))
 
     categoryid=foodtypes[index].typeid
 
@@ -77,7 +85,7 @@ def market(request,childid='0',sortid='0'):
         goods = goods.order_by('price')
 
     childnames=foodtypes[index].childtypenames
-    print(childid)
+    # print(childid)
 
     child_list=[]
     for item in childnames.split('#'):
@@ -241,7 +249,7 @@ def check_03(request):
     password = request.GET.get('password')
     password_again=request.GET.get('password_again')
 
-    print(password,password_again)
+    # print(password,password_again)
 
     if password==password_again:
         return JsonResponse({'msg': '再次密码配对成功', 'status': 1})
@@ -249,5 +257,57 @@ def check_03(request):
         return JsonResponse({'msg': '再次密码配对失败', 'status': 0})
 
 
-def check_04(request):
-    return None
+# def check_04(request):
+#
+#     name=request.GET.get('name')
+#     print(name)
+#
+#
+#     return JsonResponse({'msg': '昵称显示成功', 'status': 0})
+
+def addcart(request):
+
+    token = request.session.get('token')
+
+    goodid=request.GET.get('goodid')
+
+
+
+    if token:
+
+        userid=cache.get(token)
+        user=User.objects.get(pk=userid)
+
+        goods=Goods.objects.get(pk=goodid)
+
+        carts=Cart.objects.filter(user=user).filter(goods=goods)
+
+        print(user,goods,carts)
+        print(type(user))
+
+        if carts.exists():
+            print(111111111)
+            cart=carts.first()
+            print(222222222)
+            cart.number=cart.number+1
+            print(333333333)
+            cart.save()
+        else:
+            print(4444444444444)
+            cart=Cart()
+            print(5555555555)
+            cart.user=user
+            print(6666666666)
+            cart.goods=goods
+            print(7777777777777777)
+            cart.number=1
+            print(888888888888)
+            cart.save()
+
+        return JsonResponse({'msg':'{}-加入购物车-数量为-{}'.format(cart.goods.productlongname,cart.number),'status':1})
+    else:
+
+        return JsonResponse({'msg': '请先登录，再进行操作','status':0})
+
+
+
