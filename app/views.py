@@ -119,7 +119,32 @@ def market(request,childid='0',sortid='0'):
 
 
 def cart(request):
-    return render(request,'cart/cart.html')
+
+    token=request.session.get('token')
+
+    userid=cache.get(token)
+
+    isall=True
+
+    if userid:
+        user=User.objects.get(pk=userid)
+
+        carts=user.cart_set.filter(number__gt=0)
+
+        for cart in carts:
+            if not cart.isselect:
+                isall=False
+
+    else:
+        return redirect('app:login')
+
+
+    data={
+        'carts':carts,
+        'isall':isall
+    }
+
+    return render(request,'cart/cart.html',context=data)
 
 
 def mine(request):
@@ -344,3 +369,22 @@ def minuscart(request):
     cart.save()
 
     return JsonResponse({'msg':'{}-减操作-数量为{}'.format(cart.goods.productlongname,cart.number),'number':cart.number})
+
+
+def changestatus(request):
+
+    cartid=request.GET.get('cartid')
+
+    print(cartid)
+
+    cart=Cart.objects.get(pk=cartid)
+
+    print(cart.isselect)
+
+    cart.isselect=not cart.isselect
+    cart.save()
+
+    print(cart.isselect)
+
+
+    return JsonResponse({'msg':'状态修改成功','status':1,'isselect':cart.isselect})

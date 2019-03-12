@@ -12,7 +12,60 @@
 
 {% block content %}
 
-    <div id="content">购物车</div>
+
+
+            <div class="cart">
+                <ul>
+                    {% for cart in carts %}
+                        <li>
+                        <div class="confirm-wrapper" cartid="{{ cart.id }}">
+                            {% if cart.isselect %}
+                                <span class="glyphicon glyphicon-ok"></span>
+                            {% else %}
+                                <span class="no"></span>
+                            {% endif %}
+                        </div>
+
+                        <div class="content-wrapper">
+                            <div class="img">
+                                <img src="{{ cart.goods.productimg }}">
+                            </div>
+                            <div class="detail">
+                                <p class="name">{{ cart.goods.productlongname }}</p>
+                                <p class="price">{{ cart.goods.price }}</p>
+                                <p class="num">x{{ cart.number }}</p>
+                            </div>
+                        </div>
+                    </li>
+                    {% endfor %}
+
+
+                </ul>
+                <div class="bill">
+                    <div class="bill-left">
+                        <div class="all">
+                            {% if isall %}
+                                <span class="glyphicon glyphicon-ok"></span>
+                                <b>全选</b>
+                            {% else %}
+                                <span class="no"></span>
+                                <b>全选</b>
+                            {% endif %}
+
+                        </div>
+                        <div class="total">
+                            <span>$</span>
+                            <b>9</b>
+                        </div>
+                    </div>
+
+                    <div class="bill-right">
+                        <a>下单</a>
+                    </div>
+                </div>
+            </div>
+
+
 
 {% endblock %}
 
