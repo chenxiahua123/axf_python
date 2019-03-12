@@ -8,7 +8,7 @@ from django.http import JsonResponse
 from django.shortcuts import render, redirect
 
 # Create your views here.
-from app.models import Lunbo, Nav, Mustbuy, Shop, Mainshow, Foodtypes, Goods, User, Cart
+from app.models import Lunbo, Nav, Mustbuy, Shop, Mainshow, Foodtypes, Goods, User, Cart, Order, OrderGoods
 
 
 def base(request):
@@ -412,3 +412,46 @@ def changeall(request):
         cart.save()
 
     return JsonResponse({'msg':'状态修改成功','status':1,'isall':isall})
+
+
+def generate_identifier():
+    identifier=str(time())+str(random.randrange(1000,10000))
+    return identifier
+
+
+def generateorder(request):
+
+    token=request.session.get('token')
+
+    userid=cache.get(token)
+
+    user=User.objects.get(pk=userid)
+
+    carts=user.cart_set.filter(isselect=True)
+
+    # 订单
+    order=Order()
+
+    order.user=user
+
+    order.identifier=generate_identifier()
+
+    order.save()
+
+    for cart in carts:
+        ordergoods=OrderGoods()
+
+        ordergoods.order=order
+
+        ordergoods.goods=cart.goods
+
+        ordergoods.number=cart.number
+
+        ordergoods.save()
+
+    carts.delete()
+
+
+
+
+    return render(request,'cart/orderdetail.html',context={'order':order})

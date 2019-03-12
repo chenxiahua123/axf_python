@@ -24,7 +24,7 @@ urlpatterns=[
     url(r'^changestatus/$',views.changestatus,name='changestatus'),
     url(r'^changeall/$',views.changeall,name='changeall'),
 
-
-
-
+    # 订单操作
+    # 生成订单
+    url(r'^generateorder/$', views.generateorder, name='generateorder'),
 ]

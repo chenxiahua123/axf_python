@@ -138,3 +138,24 @@ class Cart(models.Model):
 
     class Meta:
         db_table='爱鲜蜂——购物车'
+
+
+# 订单类模型
+class Order(models.Model):
+    user=models.ForeignKey(User)
+    # 创建时间
+    createtime=models.DateTimeField(auto_now_add=True)
+    # 更新时间
+    updatetime=models.DateTimeField(auto_now=True)
+
+    # 状态：-1 过期  0未付款  1已付款，待发货  2已发货，待收货  3已收货，待评价
+    status=models.IntegerField(default=0)
+    # 订单号
+    identifier=models.CharField(max_length=300)
+
+class OrderGoods(models.Model):
+    order=models.ForeignKey(Order)
+
+    goods=models.ForeignKey(Goods)
+
+    number=models.IntegerField()
