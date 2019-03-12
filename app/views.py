@@ -141,7 +141,7 @@ def cart(request):
 
     data={
         'carts':carts,
-        'isall':isall
+        'isall':isall,
     }
 
     return render(request,'cart/cart.html',context=data)
@@ -388,3 +388,27 @@ def changestatus(request):
 
 
     return JsonResponse({'msg':'状态修改成功','status':1,'isselect':cart.isselect})
+
+
+def changeall(request):
+
+    isall=request.GET.get('isall')
+
+    if isall=='false':
+        isall=False
+    elif isall=='true':
+        isall=True
+
+    token=request.session.get('token')
+
+    userid=cache.get(token)
+
+    user=User.objects.get(pk=userid)
+
+    carts=user.cart_set.all()
+
+    for cart in carts:
+        cart.isselect=isall
+        cart.save()
+
+    return JsonResponse({'msg':'状态修改成功','status':1,'isall':isall})
