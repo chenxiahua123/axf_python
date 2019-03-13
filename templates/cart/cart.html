@@ -31,9 +31,9 @@
                                 <img src="{{ cart.goods.productimg }}">
                             </div>
                             <div class="detail">
-                                <p class="name">{{ cart.goods.productlongname }}</p>
-                                <p class="price">{{ cart.goods.price }}</p>
-                                <p class="num">x{{ cart.number }}</p>
+                                <p class="name" name="{{ cart.goods.productlongname }}">{{ cart.goods.productlongname }}</p>
+                                <p class="price" price="{{ cart.goods.price }}">{{ cart.goods.price }}</p>
+                                <p class="num" num="{{ cart.number }}">x{{ cart.number }}</p>
                             </div>
                         </div>
                     </li>
@@ -55,7 +55,7 @@
                         </div>
                         <div class="total">
                             <span>$</span>
-                            <b>9</b>
+                            <b>0</b>
                         </div>
                     </div>
 

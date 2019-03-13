@@ -1,6 +1,8 @@
 $(function () {
     $('.cart').width(innerWidth)
 
+    total()
+
     // 选择框选中
     $('.confirm-wrapper').click(function () {
         // console.log('选中成功')
@@ -22,13 +24,17 @@ $(function () {
                     var $span=$that.find('span')
                     $span.removeClass('no').addClass('glyphicon glyphicon-ok')
                     // console.log(111111111111111111111)
+                    total()
                 }else{
                     var $span=$that.find('span')
                     $span.removeClass('glyphicon glyphicon-ok').addClass('no')
                     // console.log(222222222222222222)
+                    total()
                 }
             }
         })
+
+
 
     })
 
@@ -70,7 +76,38 @@ $(function () {
 
         })
 
-
+        total()
     })
+
+    // 算术功能
+    function total() {
+        console.log('ppppppppppp')
+
+        var sum=0
+
+        $('.confirm-wrapper').each(function () {
+            console.log(111111111111111111)
+            if ($(this).find('span').is('.glyphicon-ok')){
+                console.log(222222222222)
+                var price=parseInt($(this).next().find('p').eq(1).attr('price'))
+                var number=parseInt($(this).next().find('p').eq(2).attr('num'))
+
+                console.log(price,typeof(price))
+                console.log(number,typeof(number))
+
+                sum+=price*number
+
+            }
+        })
+
+        console.log(sum)
+        $('.total b').html(sum)
+
+
+
+    }
+
+
+
 
 })
