@@ -427,7 +427,7 @@ def generateorder(request):
 
     user=User.objects.get(pk=userid)
 
-    carts=user.cart_set.filter(isselect=True)
+    carts=user.cart_set.filter(isselect=True).filter(number__gt=0)
 
     # 订单
     order=Order()

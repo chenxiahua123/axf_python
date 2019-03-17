@@ -149,6 +149,10 @@ $(function () {
         $.get('/minuscart',data,function (response) {
             console.log(response)
             $that.next().html(response.number)
+            if (response.number==0){
+                $that.next().hide()
+                $that.hide()
+            }
         })
 
 
